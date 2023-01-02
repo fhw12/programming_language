@@ -10,6 +10,12 @@ class BinOp():
 		self.right = right
 		self.left = left
 
+class UnaryOp():
+	def __init__(self, value, left):
+		self.type = 'UnaryOp'
+		self.value = value
+		self.left = left
+
 class Ast():
 	def __init__(self, tokens):
 		self.tokens = tokens
@@ -29,10 +35,13 @@ class Ast():
 		if token.type == 'NUMBER':
 			self.validation('NUMBER')
 			node = Number(value=token.value)
-		if token.type == 'LPARENT':
+		elif token.type == 'LPARENT':
 			self.validation('LPARENT')
 			node = self.CALC()
 			self.validation('RPARENT')
+		elif token.type == 'MINUS':
+			self.validation('MINUS')
+			node = UnaryOp(value="-", left=self.NUMBER())
 		return node
 
 	def MUL_DIV(self):

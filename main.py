@@ -3,7 +3,7 @@ import ast
 
 source = """
 
-2 + 2 * 2 == 6
+1 - 2 == -1
 
 """
 
@@ -18,6 +18,9 @@ def print_node(node, i, text):
 		print(i * '\t' + f'{text}: {node.value}')
 		print_node(node.left, i+1, 'left')
 		print_node(node.right, i+1, 'right')
+	elif node.type == 'UnaryOp':
+		print(i * '\t' + f'{text}: {node.value}')
+		print_node(node.left, i+1, 'left')
 	elif node.type == 'Number':
 		print(i * '\t' + f'{text}: {node.value}')
 
@@ -48,6 +51,9 @@ def calculator(node):
 		elif node.value == '!=':
 			result = calculator(node.left) != calculator(node.right)
 		return result
+	elif node.type == 'UnaryOp':
+		if node.value == '-':
+			return -calculator(node.left)
 	elif node.type == 'Number':
 		return int(node.value)
 
