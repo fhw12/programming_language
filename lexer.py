@@ -11,6 +11,8 @@ class Lexer():
 		self.tokens = []
 		self.pos = 0
 
+		self.reserved_words = ['print']
+
 	def add_token(self, token_type, token_value):
 		self.tokens.append(Token(token_type, token_value))
 
@@ -27,6 +29,17 @@ class Lexer():
 		result = ""
 
 		while self.pos < len(self.source) and self.get_current_char().isdigit():
+			char = self.get_current_char()
+			result += char
+			self.pos += 1
+		self.pos -= 1
+
+		return result
+
+	def parse_word(self):
+		result = ""
+
+		while self.pos < len(self.source) and self.get_current_char().isalpha():
 			char = self.get_current_char()
 			result += char
 			self.pos += 1
@@ -63,6 +76,12 @@ class Lexer():
 				self.add_token('>', char)
 			elif char.isdigit():
 				self.add_token('NUMBER', self.parse_number())
+			elif char.isalpha():
+				result = self.parse_word()
+				if result in self.reserved_words:
+					self.add_token(result.upper(), result)
+				else:
+					self.add_token('ID', result)
 			elif char == '+':
 				self.add_token('PLUS', char)
 			elif char == '-':
