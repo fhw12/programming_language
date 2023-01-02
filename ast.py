@@ -115,6 +115,9 @@ class Ast():
 			elif token.type == 'MINUS':
 				self.validation('MINUS')
 				node = BinOp(value="-", left=node, right=self.MUL_DIV())
+			elif token.type == '..':
+				self.validation('..')
+				node = BinOp(value="..", left=node, right=self.MUL_DIV())
 			else:
 				return node
 		return node

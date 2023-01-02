@@ -28,6 +28,8 @@ class Interpreter():
 				result = self.run(node.left) == self.run(node.right)
 			elif node.value == '!=':
 				result = self.run(node.left) != self.run(node.right)
+			elif node.value == '..':
+				result = str(self.run(node.left)) + str(self.run(node.right))
 			return result
 		elif node.type == 'UnaryOp':
 			if node.value == '-':

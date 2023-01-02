@@ -10,7 +10,7 @@ while(i < 10){
 	if(i == 5){ print("i == 5") }
 	if(i < 3){ print("i < 3") }
 	if(i >= 3 && i != 5){
-		print(i)
+		print("i -> " .. i)
 	}
 	i = i + 1
 }

@@ -80,6 +80,9 @@ class Lexer():
 			elif char + next_char == '!=':
 				self.add_token('!=', '!=')
 				self.pos += 1
+			elif char + next_char == '..':
+				self.add_token('..', '..')
+				self.pos += 1
 			elif char == '<':
 				self.add_token('<', char)
 			elif char == '>':
