@@ -31,7 +31,8 @@ class Ast():
 			node = Number(value=token.value)
 		if token.type == 'LPARENT':
 			self.validation('LPARENT')
-			node = self.PLUS_MINUS()
+			node = self.CALC()
+			self.validation('RPARENT')
 		return node
 
 	def MUL_DIV(self):
@@ -69,6 +70,10 @@ class Ast():
 
 	def OR(self):
 		pass
+
+	def CALC(self):
+		node = self.PLUS_MINUS()
+		return node
 
 	def parse(self):
 		pass
