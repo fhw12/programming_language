@@ -66,13 +66,31 @@ class Ast():
 		return node
 
 	def AND(self):
-		pass
+		node = self.PLUS_MINUS()
+		while self.pos < len(self.tokens):
+			token = self.get_current_token()
+
+			if token.type == 'AND':
+				self.validation('AND')
+				node = BinOp(value="AND", left=node, right=self.PLUS_MINUS())
+			else:
+				return node
+		return node
 
 	def OR(self):
-		pass
+		node = self.AND()
+		while self.pos < len(self.tokens):
+			token = self.get_current_token()
+
+			if token.type == 'OR':
+				self.validation('OR')
+				node = BinOp(value="OR", left=node, right=self.AND())
+			else:
+				return node
+		return node
 
 	def CALC(self):
-		node = self.PLUS_MINUS()
+		node = self.OR()
 		return node
 
 	def parse(self):

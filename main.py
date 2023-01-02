@@ -3,7 +3,7 @@ import ast
 
 source = """
 
-2 + 2 * 2
+2 - 1 + 1 && 2 + 2 * 2 - 6 || 1
 
 """
 
@@ -28,7 +28,10 @@ def calculator(node):
 			result = calculator(node.left) * calculator(node.right)
 		elif node.value == '/':
 			result = calculator(node.left) / calculator(node.right)
-
+		elif node.value == 'AND':
+			result = calculator(node.left) and calculator(node.right)
+		elif node.value == 'OR':
+			result = calculator(node.left) or calculator(node.right)
 		return result
 	elif node.type == 'Number':
 		return int(node.value)
