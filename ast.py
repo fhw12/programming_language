@@ -4,7 +4,7 @@ class Number():
 		self.value = value
 
 class BinOp():
-	def __init__(self, value, right, left):
+	def __init__(self, value, left, right):
 		self.type = 'BinOp'
 		self.value = value
 		self.right = right
@@ -15,6 +15,22 @@ class UnaryOp():
 		self.type = 'UnaryOp'
 		self.value = value
 		self.left = left
+
+class Compound():
+	def __init__(self, left, right):
+		self.type = 'Compound'
+		self.left = left
+		self.right = right
+
+class Function():
+	def __init__(self, value, left):
+		self.type = 'Function'
+		self.value = value
+		self.left = left
+
+class NullNode():
+	def __init__(self):
+		self.type = 'NullNode'
 
 class Ast():
 	def __init__(self, tokens):
@@ -115,4 +131,13 @@ class Ast():
 		return node
 
 	def parse(self):
-		pass
+		node = NullNode()
+		while self.pos < len(self.tokens):
+			token = self.get_current_token()
+
+			if token.type == 'PRINT':
+				self.validation('PRINT')
+				self.validation('LPARENT')
+				node = Compound(left=node, right=Function(left=self.CALC(), value="PRINT"))
+				self.validation('RPARENT')
+		return node
