@@ -3,12 +3,15 @@ import ast
 
 source = """
 
-2 - 1 + 1 && 2 + 2 * 2 - 6 || 1
+2 + 2 * 2 == 6
 
 """
 
 tokens = lexer.Lexer(source).parse()
 root_node = ast.Ast(tokens).CALC()
+
+for token in tokens:
+	print(token)
 
 def print_node(node, i, text):
 	if node.type == 'BinOp':
@@ -32,6 +35,18 @@ def calculator(node):
 			result = calculator(node.left) and calculator(node.right)
 		elif node.value == 'OR':
 			result = calculator(node.left) or calculator(node.right)
+		elif node.value == '<':
+			result = calculator(node.left) < calculator(node.right)
+		elif node.value == '>':
+			result = calculator(node.left) > calculator(node.right)
+		elif node.value == '<=':
+			result = calculator(node.left) <= calculator(node.right)
+		elif node.value == '>=':
+			result = calculator(node.left) >= calculator(node.right)
+		elif node.value == '==':
+			result = calculator(node.left) == calculator(node.right)
+		elif node.value == '!=':
+			result = calculator(node.left) != calculator(node.right)
 		return result
 	elif node.type == 'Number':
 		return int(node.value)

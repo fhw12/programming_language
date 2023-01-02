@@ -65,14 +65,41 @@ class Ast():
 				return node
 		return node
 
-	def AND(self):
+	def CMP(self):
 		node = self.PLUS_MINUS()
+		while self.pos < len(self.tokens):
+			token = self.get_current_token()
+
+			if token.type == '<':
+				self.validation('<')
+				node = BinOp(value="<", left=node, right=self.PLUS_MINUS())
+			if token.type == '>':
+				self.validation('>')
+				node = BinOp(value=">", left=node, right=self.PLUS_MINUS())
+			if token.type == '<=':
+				self.validation('<=')
+				node = BinOp(value="<=", left=node, right=self.PLUS_MINUS())
+			if token.type == '>=':
+				self.validation('>=')
+				node = BinOp(value=">=", left=node, right=self.PLUS_MINUS())
+			if token.type == '==':
+				self.validation('==')
+				node = BinOp(value="==", left=node, right=self.PLUS_MINUS())
+			if token.type == '!=':
+				self.validation('!=')
+				node = BinOp(value="!=", left=node, right=self.PLUS_MINUS())
+			else:
+				return node
+		return node
+
+	def AND(self):
+		node = self.CMP()
 		while self.pos < len(self.tokens):
 			token = self.get_current_token()
 
 			if token.type == 'AND':
 				self.validation('AND')
-				node = BinOp(value="AND", left=node, right=self.PLUS_MINUS())
+				node = BinOp(value="AND", left=node, right=self.CMP())
 			else:
 				return node
 		return node

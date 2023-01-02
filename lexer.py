@@ -45,6 +45,22 @@ class Lexer():
 			elif char + next_char == '||':
 				self.add_token('OR', '||')
 				self.pos += 1
+			elif char + next_char == '<=':
+				self.add_token('<=', '<=')
+				self.pos += 1
+			elif char + next_char == '>=':
+				self.add_token('>=', '>=')
+				self.pos += 1
+			elif char + next_char == '==':
+				self.add_token('==', '==')
+				self.pos += 1
+			elif char + next_char == '!=':
+				self.add_token('!=', '!=')
+				self.pos += 1
+			elif char == '<':
+				self.add_token('<', char)
+			elif char == '>':
+				self.add_token('>', char)
 			elif char.isdigit():
 				self.add_token('NUMBER', self.parse_number())
 			elif char == '+':
