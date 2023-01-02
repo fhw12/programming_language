@@ -70,24 +70,9 @@ class Ast():
 		while self.pos < len(self.tokens):
 			token = self.get_current_token()
 
-			if token.type == '<':
-				self.validation('<')
-				node = BinOp(value="<", left=node, right=self.PLUS_MINUS())
-			if token.type == '>':
-				self.validation('>')
-				node = BinOp(value=">", left=node, right=self.PLUS_MINUS())
-			if token.type == '<=':
-				self.validation('<=')
-				node = BinOp(value="<=", left=node, right=self.PLUS_MINUS())
-			if token.type == '>=':
-				self.validation('>=')
-				node = BinOp(value=">=", left=node, right=self.PLUS_MINUS())
-			if token.type == '==':
-				self.validation('==')
-				node = BinOp(value="==", left=node, right=self.PLUS_MINUS())
-			if token.type == '!=':
-				self.validation('!=')
-				node = BinOp(value="!=", left=node, right=self.PLUS_MINUS())
+			if token.type in ['<', '>', '<=', '>=', '!=', '==']:
+				self.validation(token.type)
+				node = BinOp(value=token.type, left=node, right=self.PLUS_MINUS())
 			else:
 				return node
 		return node
