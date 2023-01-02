@@ -1,4 +1,5 @@
 import lexer
+import ast
 
 source = """
 
@@ -7,6 +8,7 @@ source = """
 """
 
 tokens = lexer.Lexer(source).parse()
+node = ast.Ast(tokens).parse()
 
 for token in tokens:
 	print(token)
