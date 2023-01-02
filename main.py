@@ -3,9 +3,10 @@ import ast
 import interpreter
 
 source = """
-print(1)
-print(2)
-print(1 + 2)
+a = 2 + 2 * 2
+b = a + 1
+c = b - 1
+print(a + b + -c)
 """
 
 tokens = lexer.Lexer(source).parse()
@@ -15,6 +16,9 @@ for token in tokens:
 	print(token)
 
 def print_node(node, i, text):
+	if node == None:
+		return
+
 	if node.type == 'BinOp':
 		print(i * '\t' + f'{text}: {node.value}')
 		print_node(node.left, i+1, 'left')
@@ -31,6 +35,9 @@ def print_node(node, i, text):
 		print_node(node.left, i+1, 'left')
 	elif node.type == 'Number':
 		print(i * '\t' + f'{text}: {node.value}')
+	elif node.type == 'Variable':
+		print(i * '\t' + f'{text}: Variable')
+		print_node(node.left, i+1, 'left')
 
 print_node(root_node, 0, 'root')
 

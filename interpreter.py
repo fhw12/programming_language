@@ -1,6 +1,6 @@
 class Interpreter():
 	def __init__(self):
-		pass
+		self.variables = {}
 
 	def run(self, node):
 		if node.type == 'BinOp':
@@ -31,7 +31,7 @@ class Interpreter():
 			return result
 		elif node.type == 'UnaryOp':
 			if node.value == '-':
-				return -run(node.left)
+				return -self.run(node.left)
 		elif node.type == 'Compound':
 			self.run(node.left)
 			self.run(node.right)
@@ -40,3 +40,8 @@ class Interpreter():
 				print(self.run(node.left))
 		elif node.type == 'Number':
 			return int(node.value)
+		elif node.type == 'Variable':
+			if node.left != None:
+				self.variables[node.name] = self.run(node.left)
+			else:
+				return self.variables[node.name]

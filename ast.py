@@ -28,6 +28,12 @@ class Function():
 		self.value = value
 		self.left = left
 
+class Variable():
+	def __init__(self, name, left):
+		self.type = 'Variable'
+		self.name = name
+		self.left = left
+
 class NullNode():
 	def __init__(self):
 		self.type = 'NullNode'
@@ -58,6 +64,9 @@ class Ast():
 		elif token.type == 'MINUS':
 			self.validation('MINUS')
 			node = UnaryOp(value="-", left=self.NUMBER())
+		elif token.type == 'ID':
+			self.validation('ID')
+			node = Variable(name=token.value, left=None)
 		return node
 
 	def MUL_DIV(self):
@@ -109,7 +118,7 @@ class Ast():
 
 			if token.type == 'AND':
 				self.validation('AND')
-				node = BinOp(value="AND", left=node, right=self.CMP())
+				node = BinOp(value='AND', left=node, right=self.CMP())
 			else:
 				return node
 		return node
@@ -134,10 +143,14 @@ class Ast():
 		node = NullNode()
 		while self.pos < len(self.tokens):
 			token = self.get_current_token()
-
+			
 			if token.type == 'PRINT':
 				self.validation('PRINT')
 				self.validation('LPARENT')
-				node = Compound(left=node, right=Function(left=self.CALC(), value="PRINT"))
+				node = Compound(left=node, right=Function(left=self.CALC(), value='PRINT'))
 				self.validation('RPARENT')
+			elif token.type == 'ID':
+				self.validation('ID')
+				self.validation('ASSIGN')
+				node = Compound(left=node, right=Variable(name=token.value, left=self.CALC()))
 		return node

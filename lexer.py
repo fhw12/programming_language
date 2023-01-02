@@ -74,6 +74,8 @@ class Lexer():
 				self.add_token('<', char)
 			elif char == '>':
 				self.add_token('>', char)
+			elif char == '=':
+				self.add_token('ASSIGN', char)
 			elif char.isdigit():
 				self.add_token('NUMBER', self.parse_number())
 			elif char.isalpha():
