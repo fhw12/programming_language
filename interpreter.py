@@ -50,3 +50,6 @@ class Interpreter():
 		elif node.type == 'Condition':
 			if self.run(node.condition):
 				self.run(node.left)
+		elif node.type == 'Loop':
+			while self.run(node.condition):
+				self.run(node.left)

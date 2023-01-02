@@ -4,21 +4,15 @@ import interpreter
 
 source = """
 
-a = 10
-
-if(a != 10 && a > 3){
-	print("a != 10 && a > 3")
-}
-
-if(a <= 12){
-	if(a == 10){
-		print("a == 10")
+i = 0
+while(i < 10){
+	
+	if(i == 5){ print("i == 5") }
+	if(i < 3){ print("i < 3") }
+	if(i >= 3 && i != 5){
+		print(i)
 	}
-	print("a <= 12")
-}
-
-if(a > 12){
-	print("a > 12")
+	i = i + 1
 }
 
 """
@@ -41,6 +35,10 @@ def print_node(node, i, text):
 	elif node.type == 'Condition':
 		print(i * '\t' + f'{text}: ')
 		print_node(node.condition, i+1, 'condition')
+		print_node(node.left, i+1, 'left')
+	elif node.type == 'Loop':
+		print(i * '\t' + f'{text}: ')
+		print_node(node.condition, i+1, 'loop')
 		print_node(node.left, i+1, 'left')
 	elif node.type == 'UnaryOp':
 		print(i * '\t' + f'{text}: {node.value}')

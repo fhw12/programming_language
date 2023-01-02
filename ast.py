@@ -45,6 +45,12 @@ class Condition():
 		self.condition = condition
 		self.left = left
 
+class Loop():
+	def __init__(self, condition, left):
+		self.type = 'Loop'
+		self.condition = condition
+		self.left = left
+
 class NullNode():
 	def __init__(self):
 		self.type = 'NullNode'
@@ -174,6 +180,14 @@ class Ast():
 				self.validation('RPARENT')
 				self.validation('LBLOCK')
 				node = Compound(left=node, right=Condition(condition=condition, left=self.parse()))
+				self.validation('RBLOCK')
+			elif token.type == 'WHILE':
+				self.validation('WHILE')
+				self.validation('LPARENT')
+				condition = self.CALC()
+				self.validation('RPARENT')
+				self.validation('LBLOCK')
+				node = Compound(left=node, right=Loop(condition=condition, left=self.parse()))
 				self.validation('RBLOCK')
 			else:
 				return node

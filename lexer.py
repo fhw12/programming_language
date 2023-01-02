@@ -11,7 +11,7 @@ class Lexer():
 		self.tokens = []
 		self.pos = 0
 
-		self.reserved_words = ['print', 'if']
+		self.reserved_words = ['print', 'if', 'while']
 
 	def add_token(self, token_type, token_value):
 		self.tokens.append(Token(token_type, token_value))
