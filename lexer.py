@@ -47,6 +47,16 @@ class Lexer():
 
 		return result
 
+	def parse_string(self):
+		result = ""
+
+		while self.pos < len(self.source) and self.get_current_char() != '"':
+			char = self.get_current_char()
+			result += char
+			self.pos += 1
+
+		return result
+
 	def parse(self):
 		while self.pos < len(self.source):
 			char = self.get_current_char()
@@ -100,6 +110,10 @@ class Lexer():
 				self.add_token('LPARENT', char)
 			elif char == ')':
 				self.add_token('RPARENT', char)
+			elif char == '"':
+				self.pos += 1
+				result = self.parse_string()
+				self.add_token("STRING", result)
 
 			self.pos += 1
 

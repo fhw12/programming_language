@@ -7,27 +7,28 @@ source = """
 a = 10
 
 if(a != 10 && a > 3){
-	print(1)
+	print("a != 10 && a > 3")
 }
 
-if(a < 12){
+if(a <= 12){
 	if(a == 10){
-		print(2)
+		print("a == 10")
 	}
-	print(3)
+	print("a <= 12")
 }
 
 if(a > 12){
-	print(4)
+	print("a > 12")
 }
 
 """
 
 tokens = lexer.Lexer(source).parse()
-root_node = ast.Ast(tokens).parse()
 
 for token in tokens:
 	print(token)
+
+root_node = ast.Ast(tokens).parse()
 
 def print_node(node, i, text):
 	if node == None:
@@ -52,6 +53,8 @@ def print_node(node, i, text):
 		print(i * '\t' + f'{text}: {node.value}')
 		print_node(node.left, i+1, 'left')
 	elif node.type == 'Number':
+		print(i * '\t' + f'{text}: {node.value}')
+	elif node.type == 'String':
 		print(i * '\t' + f'{text}: {node.value}')
 	elif node.type == 'Variable':
 		print(i * '\t' + f'{text}: Variable')

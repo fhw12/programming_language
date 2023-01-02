@@ -3,6 +3,11 @@ class Number():
 		self.type = 'Number'
 		self.value = value
 
+class String():
+	def __init__(self, value):
+		self.type = 'String'
+		self.value = value
+
 class BinOp():
 	def __init__(self, value, left, right):
 		self.type = 'BinOp'
@@ -73,6 +78,9 @@ class Ast():
 		elif token.type == 'ID':
 			self.validation('ID')
 			node = Variable(name=token.value, left=None)
+		elif token.type == 'STRING':
+			self.validation('STRING')
+			node = String(value=token.value)
 		return node
 
 	def MUL_DIV(self):
