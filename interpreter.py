@@ -45,3 +45,6 @@ class Interpreter():
 				self.variables[node.name] = self.run(node.left)
 			else:
 				return self.variables[node.name]
+		elif node.type == 'Condition':
+			if self.run(node.condition):
+				self.run(node.left)

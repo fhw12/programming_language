@@ -11,7 +11,7 @@ class Lexer():
 		self.tokens = []
 		self.pos = 0
 
-		self.reserved_words = ['print']
+		self.reserved_words = ['print', 'if']
 
 	def add_token(self, token_type, token_value):
 		self.tokens.append(Token(token_type, token_value))
@@ -74,6 +74,10 @@ class Lexer():
 				self.add_token('<', char)
 			elif char == '>':
 				self.add_token('>', char)
+			elif char == '{':
+				self.add_token('LBLOCK', char)
+			elif char == '}':
+				self.add_token('RBLOCK', char)
 			elif char == '=':
 				self.add_token('ASSIGN', char)
 			elif char.isdigit():

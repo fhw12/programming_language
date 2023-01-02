@@ -34,6 +34,12 @@ class Variable():
 		self.name = name
 		self.left = left
 
+class Condition():
+	def __init__(self, condition, left):
+		self.type = 'Condition'
+		self.condition = condition
+		self.left = left
+
 class NullNode():
 	def __init__(self):
 		self.type = 'NullNode'
@@ -153,4 +159,14 @@ class Ast():
 				self.validation('ID')
 				self.validation('ASSIGN')
 				node = Compound(left=node, right=Variable(name=token.value, left=self.CALC()))
+			elif token.type == 'IF':
+				self.validation('IF')
+				self.validation('LPARENT')
+				condition = self.CALC()
+				self.validation('RPARENT')
+				self.validation('LBLOCK')
+				node = Compound(left=node, right=Condition(condition=condition, left=self.parse()))
+				self.validation('RBLOCK')
+			else:
+				return node
 		return node

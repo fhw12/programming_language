@@ -3,10 +3,24 @@ import ast
 import interpreter
 
 source = """
-a = 2 + 2 * 2
-b = a + 1
-c = b - 1
-print(a + b + -c)
+
+a = 10
+
+if(a != 10 && a > 3){
+	print(1)
+}
+
+if(a < 12){
+	if(a == 10){
+		print(2)
+	}
+	print(3)
+}
+
+if(a > 12){
+	print(4)
+}
+
 """
 
 tokens = lexer.Lexer(source).parse()
@@ -23,6 +37,10 @@ def print_node(node, i, text):
 		print(i * '\t' + f'{text}: {node.value}')
 		print_node(node.left, i+1, 'left')
 		print_node(node.right, i+1, 'right')
+	elif node.type == 'Condition':
+		print(i * '\t' + f'{text}: ')
+		print_node(node.condition, i+1, 'condition')
+		print_node(node.left, i+1, 'left')
 	elif node.type == 'UnaryOp':
 		print(i * '\t' + f'{text}: {node.value}')
 		print_node(node.left, i+1, 'left')
