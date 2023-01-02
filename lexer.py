@@ -17,6 +17,12 @@ class Lexer():
 	def get_current_char(self):
 		return self.source[self.pos]
 
+	def get_next_char(self):
+		if self.pos + 1 < len(self.source):
+			return self.source[self.pos + 1]
+		else:
+			return ''
+
 	def parse_number(self):
 		result = ""
 
@@ -25,16 +31,23 @@ class Lexer():
 			result += char
 			self.pos += 1
 		self.pos -= 1
-		
+
 		return result
 
 	def parse(self):
 		while self.pos < len(self.source):
 			char = self.get_current_char()
+			next_char = self.get_next_char()
 
-			if char.isdigit():
+			if char + next_char == '&&':
+				self.add_token('AND', '&&')
+				self.pos += 1
+			elif char + next_char == '||':
+				self.add_token('OR', '||')
+				self.pos += 1
+			elif char.isdigit():
 				self.add_token('NUMBER', self.parse_number())
-			if char == '+':
+			elif char == '+':
 				self.add_token('PLUS', char)
 			elif char == '-':
 				self.add_token('MINUS', char)
@@ -42,6 +55,10 @@ class Lexer():
 				self.add_token('MUL', char)
 			elif char == '/':
 				self.add_token('DIV', char)
+			elif char == '(':
+				self.add_token('LPARENT', char)
+			elif char == ')':
+				self.add_token('RPARENT', char)
 
 			self.pos += 1
 
