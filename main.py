@@ -3,15 +3,21 @@ import ast
 import interpreter
 
 source = """
+run = 1
+while(run){
+	print("Input command (hello, exit):")
+	input(i)
 
-i = 0
-while(i < 10){
-	if(i < 5){
-		print("i < 5\ti = "..i)
+	if(i == "hello"){
+		print("Hello, World!")
 	} else {
-		print("i >= 5\ti = "..i)
+		if(i == "exit"){
+			run = 0
+		} else {
+			print("unknown command: "..i)
+		}
 	}
-	i = i + 1
+	print("\n\n")
 }
 
 """

@@ -40,6 +40,8 @@ class Interpreter():
 		elif node.type == 'Function':
 			if node.value == 'PRINT':
 				print(self.run(node.left))
+			elif node.value == 'INPUT':
+				self.variables[node.left.name] = input()
 		elif node.type == 'Number':
 			return int(node.value)
 		elif node.type == 'String':

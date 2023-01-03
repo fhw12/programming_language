@@ -167,11 +167,16 @@ class Ast():
 		node = NullNode()
 		while self.pos < len(self.tokens):
 			token = self.get_current_token()
-			
+
 			if token.type == 'PRINT':
 				self.validation('PRINT')
 				self.validation('LPARENT')
 				node = Compound(left=node, right=Function(left=self.CALC(), value='PRINT'))
+				self.validation('RPARENT')
+			elif token.type == 'INPUT':
+				self.validation('INPUT')
+				self.validation('LPARENT')
+				node = Compound(left=node, right=Function(left=self.CALC(), value='INPUT'))
 				self.validation('RPARENT')
 			elif token.type == 'ID':
 				self.validation('ID')
@@ -184,9 +189,7 @@ class Ast():
 				self.validation('RPARENT')
 				self.validation('LBLOCK')
 				left = self.parse()
-				#node = Compound(left=node, right=Condition(condition=condition, left=self.parse()))
 				self.validation('RBLOCK')
-
 				right = NullNode()
 				if self.get_current_token().type == 'ELSE':
 					self.validation('ELSE')
@@ -194,7 +197,6 @@ class Ast():
 					right = self.parse()
 					self.validation('RBLOCK')
 				node = Compound(left=node, right=Condition(condition=condition, left=left, right=right))
-
 			elif token.type == 'WHILE':
 				self.validation('WHILE')
 				self.validation('LPARENT')
