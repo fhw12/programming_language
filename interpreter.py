@@ -39,7 +39,7 @@ class Interpreter():
 			self.run(node.right)
 		elif node.type == 'Function':
 			if node.value == 'PRINT':
-				print(self.run(node.left))
+				print(str(self.run(node.left)).replace('\\n', '\n'), end='')
 			elif node.value == 'INPUT':
 				self.variables[node.left.name] = input()
 			elif node.value == 'INT':

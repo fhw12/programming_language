@@ -1,0 +1,33 @@
+print("Write operation (+, -, *, /): ")
+input(op)
+
+print("Write 1 number: ")
+input(a)
+
+print("Write 2 number: ")
+input(b)
+
+int(a)
+int(b)
+
+if(op == "+"){
+	print(a + b)
+} else {}
+
+if(op == "-"){
+	print(a - b)
+}
+
+if(op == "*"){
+	print(a * b)
+}
+
+if(op == "/"){
+	print(a / b)
+}
+
+if(op != "+" && op != "-" && op != "*" && op != "/"){
+	print("Error operation: " .. op)
+}
+
+print("\n")

@@ -3,17 +3,15 @@ import ast
 import interpreter
 
 source = """
-input(a)
-input(b)
-int(a)
-int(b)
-print(a + b)
 """
+
+with open('examples/calc', 'r') as file:
+	source = file.read()
 
 tokens = lexer.Lexer(source).parse()
 
-for token in tokens:
-	print(token)
+#for token in tokens:
+#	print(token)
 
 root_node = ast.Ast(tokens).parse()
 
@@ -52,6 +50,6 @@ def print_node(node, i, text):
 		print(i * '\t' + f'{text}: Variable')
 		print_node(node.left, i+1, 'left')
 
-print_node(root_node, 0, 'root')
+#print_node(root_node, 0, 'root')
 
 interpreter.Interpreter().run(root_node)

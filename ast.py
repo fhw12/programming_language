@@ -1,3 +1,5 @@
+import lexer
+
 class Number():
 	def __init__(self, value):
 		self.type = 'Number'
@@ -62,7 +64,10 @@ class Ast():
 		self.pos = 0
 
 	def get_current_token(self):
-		return self.tokens[self.pos]
+		if self.pos < len(self.tokens):
+			return self.tokens[self.pos]
+		else:
+			return lexer.Token(None, None)
 
 	def validation(self, token_type):
 		token = self.get_current_token()
