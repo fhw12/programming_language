@@ -6,11 +6,10 @@ source = """
 
 i = 0
 while(i < 10){
-	
-	if(i == 5){ print("i == 5") }
-	if(i < 3){ print("i < 3") }
-	if(i >= 3 && i != 5){
-		print("i -> " .. i)
+	if(i < 5){
+		print("i < 5\ti = "..i)
+	} else {
+		print("i >= 5\ti = "..i)
 	}
 	i = i + 1
 }
@@ -36,6 +35,7 @@ def print_node(node, i, text):
 		print(i * '\t' + f'{text}: ')
 		print_node(node.condition, i+1, 'condition')
 		print_node(node.left, i+1, 'left')
+		print_node(node.left, i+1, 'right')
 	elif node.type == 'Loop':
 		print(i * '\t' + f'{text}: ')
 		print_node(node.condition, i+1, 'loop')

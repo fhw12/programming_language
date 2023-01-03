@@ -40,10 +40,11 @@ class Variable():
 		self.left = left
 
 class Condition():
-	def __init__(self, condition, left):
+	def __init__(self, condition, left, right):
 		self.type = 'Condition'
 		self.condition = condition
 		self.left = left
+		self.right = right
 
 class Loop():
 	def __init__(self, condition, left):
@@ -182,8 +183,18 @@ class Ast():
 				condition = self.CALC()
 				self.validation('RPARENT')
 				self.validation('LBLOCK')
-				node = Compound(left=node, right=Condition(condition=condition, left=self.parse()))
+				left = self.parse()
+				#node = Compound(left=node, right=Condition(condition=condition, left=self.parse()))
 				self.validation('RBLOCK')
+
+				right = NullNode()
+				if self.get_current_token().type == 'ELSE':
+					self.validation('ELSE')
+					self.validation('LBLOCK')
+					right = self.parse()
+					self.validation('RBLOCK')
+				node = Compound(left=node, right=Condition(condition=condition, left=left, right=right))
+
 			elif token.type == 'WHILE':
 				self.validation('WHILE')
 				self.validation('LPARENT')
