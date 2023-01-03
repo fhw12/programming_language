@@ -1,4 +1,4 @@
-<h1 align="center"> programming_language </h1>
+<h1 align="center"> Simple Programming Language </h1>
 
 ## Переменные
 ```

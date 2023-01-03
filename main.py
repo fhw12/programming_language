@@ -5,7 +5,7 @@ import interpreter
 source = """
 """
 
-with open('examples/calc', 'r') as file:
+with open('examples/hello', 'r') as file:
 	source = file.read()
 
 tokens = lexer.Lexer(source).parse()
