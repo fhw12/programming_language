@@ -1,6 +1,6 @@
 <h1 align="center"> programming_language </h1>
 
-## Переменные:
+## Переменные
 ```
 a = 5
 b = 10
