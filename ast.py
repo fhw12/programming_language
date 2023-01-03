@@ -178,6 +178,16 @@ class Ast():
 				self.validation('LPARENT')
 				node = Compound(left=node, right=Function(left=self.CALC(), value='INPUT'))
 				self.validation('RPARENT')
+			elif token.type == 'INT':
+				self.validation('INT')
+				self.validation('LPARENT')
+				node = Compound(left=node, right=Function(left=self.CALC(), value='INT'))
+				self.validation('RPARENT')
+			elif token.type == 'STR':
+				self.validation('STR')
+				self.validation('LPARENT')
+				node = Compound(left=node, right=Function(left=self.CALC(), value='STR'))
+				self.validation('RPARENT')
 			elif token.type == 'ID':
 				self.validation('ID')
 				self.validation('ASSIGN')

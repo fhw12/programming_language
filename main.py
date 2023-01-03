@@ -3,23 +3,11 @@ import ast
 import interpreter
 
 source = """
-run = 1
-while(run){
-	print("Input command (hello, exit):")
-	input(i)
-
-	if(i == "hello"){
-		print("Hello, World!")
-	} else {
-		if(i == "exit"){
-			run = 0
-		} else {
-			print("unknown command: "..i)
-		}
-	}
-	print("\n\n")
-}
-
+input(a)
+input(b)
+int(a)
+int(b)
+print(a + b)
 """
 
 tokens = lexer.Lexer(source).parse()

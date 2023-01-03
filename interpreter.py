@@ -42,6 +42,10 @@ class Interpreter():
 				print(self.run(node.left))
 			elif node.value == 'INPUT':
 				self.variables[node.left.name] = input()
+			elif node.value == 'INT':
+				self.variables[node.left.name] = int(self.variables[node.left.name])
+			elif node.value == 'STR':
+				self.variables[node.left.name] = str(self.variables[node.left.name])
 		elif node.type == 'Number':
 			return int(node.value)
 		elif node.type == 'String':
